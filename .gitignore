@@ -1,0 +1,15 @@
+# Compilati e binari
+*.exe
+*.o
+*.obj
+*.out
+
+# Cartelle di Build
+build/
+cmake-build-debug/
+cmake-build-release/
+
+# File di sistema/IDE
+.vscode/
+.idea/
+.DS_Store
