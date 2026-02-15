@@ -57,8 +57,8 @@ void ToDoList::markTaskAsDone(int index) {
 void ToDoList::removeAllTasks() {
     tasks.clear();
 }
-/*
-const std::vector<Task> & ToDoList::getAllTasks() const {
+
+const std::vector<Task>& ToDoList::getAllTasks() const {
     for (const Task& t : tasks) {
         std::cout << "Titolo: " << t.getTitle() << std::endl;
         std::cout << "Descrizione: " << t.getDescription() << std::endl;
@@ -66,9 +66,11 @@ const std::vector<Task> & ToDoList::getAllTasks() const {
         std::cout << "Creazione: " << t.getCreated() << std::endl;
         std::cout << "Modifica: " << t.getModified() << std::endl;
         std::cout << "Scadenza: " << t.getDueDate() << std::endl;
+
+        return tasks;
     }
 }
-*/
+
 int ToDoList::getNumberOfTasks() const {
     return tasks.size();
 }

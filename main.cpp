@@ -31,9 +31,10 @@ void showList(std::vector<Task> t) {
         std::cout << "Lista vuota." << std::endl;
     }
     else {
-        std::cout << "-- TO DO LIST --" << std::endl;
+        std::cout << "\n-- TO DO LIST --" << std::endl;
         for (int i = 0; i < t.size(); ++i) {
-            std::cout << i + 1 << ". " << t[i].getTitle() << std::endl;
+            std::cout << i + 1 << ". " << t[i].getTitle();
+            (t[i].isCompleted()) ? std::cout << " [Completed]" << std::endl : std::cout << " [Not completed]" << std::endl;
         }
     }
 }
@@ -63,13 +64,18 @@ void addTask(std::vector<Task> &todolist) {
     std::string title;
     std::string description;
 
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    std::cout << "\n-- CREATE NEW TASK --" << std::endl;
     std::cout << "Title: ";
     std::getline(std::cin, title);
     std::cout << "Description: ";
     std::getline(std::cin, description);
 
-    Task newTask = Task(title, description);
+    Task newTask(title, description);
     todolist.push_back(newTask);
+
+    std::cout << "Task added successfully." << std::endl;
 }
 
 std::string inputDate() {
@@ -124,58 +130,72 @@ int main() {
     */
 
     // SHOW LIST OF TASK ALREADY CREATED
-    showList(todolist);
-    std::cout << "Select a task (or enter 0 to create a new task): ";
-    std::cin >> choiceTask;
-
-    // SELECTED TASK, THEN SHOW DETAILS
-    if (choiceTask > 0 && choiceTask <= todolist.size()) {
-        showTaskDetails(todolist[choiceTask - 1]);
-        choiceTask = choiceTask - 1; // ..
-    } else {
-        std::cout << "Numero non valido." << std::endl;
-    }
-
-    // TASK ACTIONS
-    taskActions();
-    std::cout << "Select an action: ";
-    std::cin >> choiceAction;
-    // SHOW ACTIONS
     do {
-        switch (choiceAction) {
-            case 1:
-                todolist[choiceTask].setCompleted(true); // da aggiustare
-                break;
-            case 2:
-                std::cout << "New title: ";
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                std::getline(std::cin, input);
-                todolist[choiceTask].setTitle(input);
-                break;
-            case 3:
-                std::cout << "New description: ";
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                std::getline(std::cin, input);
-                todolist[choiceTask].setDescription(input);
-                break;
-            case 4:
-                std::cout << "New due date (yyyy-mm-dd): ";
-                std::cin >> input;
-                todolist[choiceTask].setDueDate(inputDate());
-                break;
-            case 5:
-                todolist.erase(todolist.begin() + choiceTask);
-                std::cout << "Task eliminato con successo." << std::endl;
-                choiceAction = 6;
-                break;
-            default:
-                break;
-        };
-        showTaskDetails(todolist[choiceTask]);
-        taskActions();
-        std::cout << "Select an action: ";
-        std::cin >> choiceAction;
-    } while (choiceAction != 6);
+        showList(todolist);
+        std::cout << "\nSelect a task (0: add a new task, -1: exit): ";
+        std::cin >> choiceTask;
+
+        // EXIT
+        if (choiceTask == -1) {break;}
+
+        // CREATE A NEW TASK
+        if (choiceTask == 0) {
+            addTask(todolist);
+            continue;
+        }
+
+        // SELECTED TASK, THEN SHOW DETAILS
+        if (choiceTask > 0 && choiceTask <= todolist.size()) {
+            int taskIndex = choiceTask - 1;
+
+            // TASK ACTIONS
+            do {
+                showTaskDetails(todolist[taskIndex]);
+                taskActions();
+                std::cout << "Select an action: ";
+                std::cin >> choiceAction;
+
+                if (choiceAction == 6) {break;}
+
+                // SHOW ACTIONS
+                switch (choiceAction) {
+                    case 1: {
+                        todolist[taskIndex].setCompleted(true); // da aggiustare
+                        break;
+                    }
+                    case 2: {
+                        std::cout << "New title: ";
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        std::getline(std::cin, input);
+                        todolist[taskIndex].setTitle(input);
+                        break;
+                    }
+                    case 3: {
+                        std::cout << "New description: ";
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        std::getline(std::cin, input);
+                        todolist[taskIndex].setDescription(input);
+                        break;
+                    }
+                    case 4: {
+                        std::cout << "New due date (yyyy-mm-dd): ";
+                        std::cin >> input;
+                        todolist[taskIndex].setDueDate(inputDate());
+                        break;
+                    }
+                    case 5: {
+                        todolist.erase(todolist.begin() + taskIndex);
+                        std::cout << "Task has been successfully removed." << std::endl;
+                        choiceAction = 6;
+                        break;
+                    }
+                } // close switch-case
+            } while (choiceAction != 6); // close do-while
+        } // close if
+        else {
+            std::cout << "Invalid choice." << std::endl;
+        }
+    } while (true); // close do-while
 
     return 0;
 }
