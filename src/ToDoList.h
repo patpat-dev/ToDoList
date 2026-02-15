@@ -8,21 +8,25 @@
 
 #include "Task.h"
 #include <vector>
+#include <limits>
 
 class ToDoList {
 private:
     std::vector<Task> tasks;
 public:
     void addTask(const Task& t);
+    void newTask();
     void modifyTitle(int index, std::string newTitle);
     void modifyDescription(int index, std::string newDescription);
     void markTaskAsDone(int index);
-    void addDueDate(int index, std::string date);
+    void modifyDueDate(int index);
     void removeDueDate(int index);
     void removeTask(int index);
     void removeAllTasks();
-    const std::vector<Task>& getAllTasks() const;
+    void showTaskDetails(int index);
+    void showList() const;
     int getNumberOfTasks() const;
+    std::string inputDate() const;
 };
 
 

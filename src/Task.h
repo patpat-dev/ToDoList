@@ -42,7 +42,7 @@ public:
     void setDueDate(const std::string& d);
 
     // metodi
-    void toggleCompleted();
+    //void toggleCompleted();
     std::string getCurrentDateTime() const;
 };
 

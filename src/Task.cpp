@@ -61,12 +61,12 @@ void Task::setDueDate(const std::string &d) {
     dueDate = d;
     modified = getCurrentDateTime();
 }
-
+/*
 void Task::toggleCompleted() {
     completed = !completed;
     modified = getCurrentDateTime();
 }
-
+*/
 std::string Task::getCurrentDateTime() const {
     std::time_t now = std::time(nullptr);
     std::tm* t = std::localtime(&now);
