@@ -16,11 +16,33 @@ add_executable(ToDoList main.cpp ${SOURCE_FILES})
 
 # -- SEZIONE TESTING --
 
-set(gtest_SOURCE_DIR
-    tests/lib/googletest/
+#set(gtest_SOURCE_DIR
+#    tests/lib/googletest/
+#)
+#include_directories(${gtest_SOURCE_DIR}/include)
+
+#add_executable(runUnitTests
+#    tests/test_main.cpp
+#        ${SOURCE__FILES}
+#)
+
+#enable_testing()
+include(FetchContent)
+FetchContent_Declare(
+        googletest
+        URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip
 )
-include_directories(${gtest_SOURCE_DIR}/include)
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+
+find_package(Threads REQUIRED)
+
+FetchContent_MakeAvailable(googletest)
 
 enable_testing()
+add_executable(runUnitTests tests/test_main.cpp ${SOURCE_FILES})
+target_link_libraries(runUnitTests GTest::gtest_main)
+
+include(GoogleTest)
+gtest_discover_tests(runUnitTests)
 
 
