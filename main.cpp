@@ -49,8 +49,12 @@ void showTaskDetails(const Task &t) {
         } else {
             std::cout << "Not completed" << std::endl;
         }
-    //std::cout << "DueDate: " << std::put_time(&tempDate, "%Y-%m-%d") << std::endl;
-    std::cout << "DueDate: " << t.getDueDate() << std::endl;
+    std::cout << "DueDate: ";
+    if(t.getDueDate() == "0000-00-00") {
+        std::cout << "No due date set" << std::endl;
+    } else {
+        std::cout << t.getDueDate() << std::endl;
+    }
     std::cout << "Created: " << t.getCreated() << std::endl;
     std::cout << "Modified: " << t.getModified() << std::endl;
 }
@@ -103,6 +107,7 @@ std::string inputDate() {
 
 int main() {
     std::vector<Task> todolist;
+    //ToDoList myList;
     int choiceTask;
     int choiceAction;
     std::string input;
@@ -113,6 +118,10 @@ int main() {
 
     todolist.push_back(t1);
     todolist.push_back(t2);
+    /*
+    myList.addTask(Task("A task", "desc.."));
+    myList.addTask(Task("Another task", "desc"));
+    */
 
     // SHOW LIST OF TASK ALREADY CREATED
     showList(todolist);
@@ -155,7 +164,10 @@ int main() {
                 todolist[choiceTask].setDueDate(inputDate());
                 break;
             case 5:
-                break; // aggiungere elimina task
+                todolist.erase(todolist.begin() + choiceTask);
+                std::cout << "Task eliminato con successo." << std::endl;
+                choiceAction = 6;
+                break;
             default:
                 break;
         };
