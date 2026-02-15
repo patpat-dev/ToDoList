@@ -9,8 +9,9 @@ Task::Task(const std::string &t, const std::string &d)
         title(t),
         description(d),
         completed(false),
-        created("date and time now"),
-        modified("same with created")
+        created(getCurrentDateTime()),
+        modified(getCurrentDateTime()),
+        dueDate("0000-00-00")
 {}
 
 std::string Task::getTitle() const {
@@ -39,14 +40,17 @@ std::string Task::getDueDate() const {
 
 void Task::setTitle(const std::string &t) {
     title = t;
+    modified = getCurrentDateTime();
 }
 
 void Task::setDescription(const std::string &d) {
     description = d;
+    modified = getCurrentDateTime();
 }
 
 void Task::setCompleted(bool c) {
     completed = c;
+    modified = getCurrentDateTime();
 }
 
 void Task::setModified(const std::string &m) {
@@ -55,8 +59,20 @@ void Task::setModified(const std::string &m) {
 
 void Task::setDueDate(const std::string &d) {
     dueDate = d;
+    modified = getCurrentDateTime();
 }
 
 void Task::toggleCompleted() {
     completed = !completed;
+    modified = getCurrentDateTime();
+}
+
+std::string Task::getCurrentDateTime() const {
+    std::time_t now = std::time(nullptr);
+    std::tm* t = std::localtime(&now);
+
+    std::ostringstream oss;
+    oss << std::put_time(t, "%Y-%m-%d %H:%M:%S");
+
+    return oss.str();
 }

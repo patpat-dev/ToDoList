@@ -7,6 +7,11 @@
 
 
 #include <string>
+#include <iostream>
+#include <ctime>
+#include <iomanip>
+#include <sstream>
+#include <optional>
 
 class Task {
 private:
@@ -16,7 +21,6 @@ private:
     std::string created;
     std::string modified;
     std::string dueDate;
-    // altri attributi?
 
 public:
     //costruttore
@@ -39,7 +43,7 @@ public:
 
     // metodi
     void toggleCompleted();
-    // altri metodi?
+    std::string getCurrentDateTime() const;
 };
 
 
