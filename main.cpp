@@ -3,6 +3,7 @@
 #include "src/ToDoList.h"
 #include <vector>
 #include <limits>
+#include "src/MemoryManager.h"
 
 // LIST OF ACTION ON A SELECTED TASK
 void taskActions() {
@@ -40,6 +41,9 @@ int main() {
     int choiceTask;
     int choiceAction;
     std::string input;
+    const std::string filename = "data/tasks.csv";
+
+    MemoryManager::loadFromFile(myList, filename);
 
     //Task t1 = Task("A task", "desc..");
     //Task t2 = Task("Another task", "desc..");
@@ -58,6 +62,7 @@ int main() {
         // CREATE A NEW TASK
         if (choiceTask == 0) {
             myList.newTask();
+            MemoryManager::saveToFile(myList, filename);
             continue;
         }
 
@@ -77,6 +82,7 @@ int main() {
                 switch (choiceAction) {
                     case 1: {
                         myList.markTaskAsDone(taskIndex);
+                        MemoryManager::saveToFile(myList, filename);
                         break;
                     }
                     case 2: {
@@ -84,6 +90,7 @@ int main() {
                         //std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                         std::getline(std::cin, input);
                         myList.modifyTitle(taskIndex, input);
+                        MemoryManager::saveToFile(myList, filename);
                         break;
                     }
                     case 3: {
@@ -91,15 +98,18 @@ int main() {
                         //std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                         std::getline(std::cin, input);
                         myList.modifyDescription(taskIndex, input);
+                        MemoryManager::saveToFile(myList, filename);
                         break;
                     }
                     case 4: {
                         myList.modifyDueDate(taskIndex);
+                        MemoryManager::saveToFile(myList, filename);
                         break;
                     }
                     case 5: {
                         myList.removeTask(taskIndex);
                         std::cout << "Task has been successfully removed." << std::endl;
+                        MemoryManager::saveToFile(myList, filename);
                         choiceAction = 6;
                         break;
                     }

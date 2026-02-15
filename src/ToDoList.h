@@ -23,8 +23,9 @@ public:
     void removeDueDate(int index);
     void removeTask(int index);
     void removeAllTasks();
-    void showTaskDetails(int index);
+    void showTaskDetails(int index) const;
     void showList() const;
+    const std::vector<Task>& getTasks() const;
     int getNumberOfTasks() const;
     std::string inputDate() const;
 };

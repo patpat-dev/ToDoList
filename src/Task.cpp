@@ -61,6 +61,11 @@ void Task::setDueDate(const std::string &d) {
     dueDate = d;
     modified = getCurrentDateTime();
 }
+
+void Task::setCreated(const std::string &c) {
+    created = c;
+}
+
 /*
 void Task::toggleCompleted() {
     completed = !completed;

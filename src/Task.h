@@ -40,6 +40,7 @@ public:
     void setCompleted(bool c);
     void setModified(const std::string& m);
     void setDueDate(const std::string& d);
+    void setCreated(const std::string& c);
 
     // metodi
     //void toggleCompleted();

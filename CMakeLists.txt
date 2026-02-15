@@ -8,6 +8,8 @@ set(SOURCE_FILES
         src/Task.h
         src/ToDoList.cpp
         src/ToDoList.h
+        src/MemoryManager.cpp
+        src/MemoryManager.h
 )
 
 add_executable(ToDoList main.cpp ${SOURCE_FILES})

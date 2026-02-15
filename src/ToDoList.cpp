@@ -77,7 +77,7 @@ void ToDoList::removeAllTasks() {
     tasks.clear();
 }
 
-void ToDoList::showTaskDetails(int index) {
+void ToDoList::showTaskDetails(int index) const {
     std::cout << "-- TASK DETAILS --" << std::endl;
     std::cout << "Title: " << tasks[index].getTitle() << std::endl;
     std::cout << "Description: " << tasks[index].getDescription() << std::endl;
@@ -108,6 +108,10 @@ void ToDoList::showList() const {
             (tasks[i].isCompleted()) ? std::cout << " [Completed]" << std::endl : std::cout << " [Not completed]" << std::endl;
         }
     }
+}
+
+const std::vector<Task> & ToDoList::getTasks() const {
+    return tasks;
 }
 
 int ToDoList::getNumberOfTasks() const {
