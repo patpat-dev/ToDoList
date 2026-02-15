@@ -3,8 +3,8 @@
 //
 
 #include "ToDoList.h"
-#include <stdexcept> // per gestire errori di indice
-#include <iostream> // do not include on final project use std::.. instead
+#include <stdexcept>
+#include <iostream>
 
 void ToDoList::addTask(const Task &t) {
     tasks.push_back(t);
@@ -23,7 +23,7 @@ void ToDoList::modifyDescription(int index, std::string newDescription) {
     }
     tasks[index].setDescription(newDescription);
 }
-// same for modify due date
+
 void ToDoList::addDueDate(int index, std::string date) {
     if (index < 0 || index >= tasks.size()) {
         throw std::out_of_range("Index out of range.");
@@ -35,7 +35,7 @@ void ToDoList::removeDueDate(int index) {
     if (index < 0 || index >= tasks.size()) {
         throw std::out_of_range("Index out of range.");
     }
-    tasks[index].setDueDate(""); // cercare con attributo.clear
+    tasks[index].setDueDate("0000-00-00");
 }
 
 void ToDoList::removeTask(int index) {
@@ -48,7 +48,6 @@ void ToDoList::removeTask(int index) {
 void ToDoList::markTaskAsDone(int index) {
     if (index >= 0 && index < tasks.size()) {
         tasks[index].setCompleted(true);
-        tasks[index].setModified("modified now");
     }
     else {
         throw std::out_of_range("Index out of range.");
@@ -57,7 +56,6 @@ void ToDoList::markTaskAsDone(int index) {
 
 void ToDoList::removeAllTasks() {
     tasks.clear();
-    // vedere come liberare memoria
 }
 
 const std::vector<Task> & ToDoList::getAllTasks() const {

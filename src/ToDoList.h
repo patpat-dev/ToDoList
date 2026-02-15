@@ -16,14 +16,13 @@ public:
     void addTask(const Task& t);
     void modifyTitle(int index, std::string newTitle);
     void modifyDescription(int index, std::string newDescription);
-    void markTaskAsDone(int index); // cannot undone
-    void addDueDate(int index, std::string date); // same for modify due date
+    void markTaskAsDone(int index);
+    void addDueDate(int index, std::string date);
     void removeDueDate(int index);
     void removeTask(int index);
     void removeAllTasks();
     const std::vector<Task>& getAllTasks() const;
     int getNumberOfTasks() const;
-    // altri metodi/azioni?
 };
 
 
